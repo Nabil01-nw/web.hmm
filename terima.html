@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keputusan Mutlak Jadian - Portal Cinta</title>
+    <!-- Hubungkan CSS Hiasan Cyber-Cute -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Canvas untuk Hujan Emoji Confetti (Hati, Kucing, Badut) -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Latar Belakang Bersinar Neon (Ambient Glow) -->
+    <div class="bg-ambient">
+        <div class="bg-glow-1"></div>
+        <div class="bg-glow-2"></div>
+    </div>
+
+    <!-- Kontainer Utama -->
+    <div class="container">
+
+        <!-- Kartu Glassmorphic Keputusan -->
+        <div class="card" id="terima-card">
+
+            <!-- Judul Halaman -->
+            <h1 class="title-glow" id="page-title">KEPUTUSAN MUTLAK</h1>
+            <p class="subtitle" id="page-subtitle">Klik segel hati emas pada amplop surat rahasia di bawah ini!</p>
+
+            <!-- Amplop Digital Interaktif -->
+            <div class="envelope-wrapper">
+                <div class="envelope" id="gift-envelope" onclick="openEnvelope()">
+                    <!-- Segel Hati Emas -->
+                    <div class="heart-seal"></div>
+                    <!-- Tutup Flap Amplop -->
+                    <div class="envelope-flap"></div>
+                    <!-- Surat Rahasia -->
+                    <div class="letter">
+                        <div class="letter-title">Hai, <span id="letter-name">Cantik</span>! 💖</div>
+                        <p
+                            style="margin: 0; font-size: 0.95rem; color: #222; font-family: var(--font-ui); font-weight: 500;">
+                            Will U Be My Girlfriend??
+                        </p>
+                        <p
+                            style="margin-top: 6px; font-weight: bold; color: hsl(340, 85%, 50%); font-size: 0.85rem; font-style: italic;">
+                            (Pilih "MAU" Gak Mau Tau!)
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tombol Pilihan Jadian (Muncul setelah Amplop Dibuka) -->
+            <div class="decision-group" id="decision-area" style="display: none;">
+                <!-- Tombol SETUJU (Mau!) -->
+                <button class="btn-primary" id="btn-yes" onclick="acceptLove()">MAU! </button>
+
+                <!-- Tombol MENOLAK (Gak Mau) - Tombol Jahil yang Menghindar -->
+                <button class="btn-secondary" id="btn-no">Gak Mau </button>
+
+                <!-- Floating Sad GIF yang muncul saat tombol No dihindari -->
+                <img id="sad-meme-gif" class="floating-sad-gif"
+                    src="https://media1.tenor.com/m/j8LSisGZyTAAAAAd/windah-windah-basudara.gif" style="display: none;"
+                    alt="Sad Crying Windah">
+            </div>
+
+            <!-- Area Selebrasi Sertifikat & Umpan Balik (Muncul setelah klik "Mau!") -->
+            <div class="success-actions" id="feedback-section" style="display: none;">
+
+                <h2 style="text-align: center; color: var(--primary); margin-bottom: 8px;">KONTRAK RESMI DITANDATANGANI!
+                    🎉</h2>
+                <p style="text-align: center; font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 20px;">
+                    Fixx jadiann
+                </p>
+
+                <!-- Kontainer GIF Perayaan Jadian -->
+                <div class="meme-container" style="margin-bottom: 24px;">
+                    <img src="https://media1.tenor.com/m/9Z4SlwWXEsEAAAAC/gal%C3%A3demais-rose.gif"
+                        alt="Ganteng Banget Rose Meme" class="meme-gif">
+                </div>
+
+                <!-- Box Sertifikat Pacaran Sah -->
+                <div class="certificate-box">
+                    <h3
+                        style="color: var(--secondary); font-size: 1.15rem; margin-bottom: 16px; font-weight: 800; letter-spacing: 0.1em;">
+                        📜 SERTIFIKAT PACARAN INTERNASIONAL 📜
+                    </h3>
+                    <p style="margin: 8px 0; font-size: 1rem; color: var(--text-primary);">
+                        <strong>Pihak 1 :</strong> <span id="cert-my-name">Nabil</span>
+                    </p>
+                    <p style="margin: 8px 0; font-size: 1rem; color: var(--text-primary);">
+                        <strong>Pihak 2 (bacoterz.xfmz) :</strong> <span id="cert-partner-name">Dia</span>
+                    </p>
+                    <p style="margin-top: 16px; font-size: 0.9rem; color: var(--secondary);">
+                        Dinyatakan SAH JADIAN secara de facto & de jure pada tanggal: <br>
+                        <span id="jadian-date"
+                            style="font-weight: bold; font-size: 1.1rem; text-decoration: underline;">Hari Ini</span>
+                    </p>
+                </div>
+
+                <img src="jadian.jpg" class="foto-tengah" alt="Foto Jadian">
+
+                <style>
+                    .foto-tengah {
+                        display: block;
+                        margin-left: auto;
+                        margin-right: auto;
+                        width: 200px;
+                    }
+                </style>
+
+
+
+
+                <!-- Tombol Reset Sesi Jodoh -->
+                <div style="margin-top: 28px; text-align: center;">
+                    <button class="btn-secondary" onclick="restartJourney()">
+                        <span>Ulangi Verifikasi Jodoh (Reset)</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Script Javascript Halaman Terima -->
+    <script src="terima.js"></script>
+</body>
+
+</html>

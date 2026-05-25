@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Verifikasi Jodoh v2.0</title>
+    <!-- Hubungkan CSS Hiasan Cyber-Cute -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Latar Belakang Bersinar Neon (Ambient Glow) -->
+    <div class="bg-ambient">
+        <div class="bg-glow-1"></div>
+        <div class="bg-glow-2"></div>
+    </div>
+
+    <!-- Kontainer Utama -->
+    <div class="container">
+
+        <!-- Kartu Portal Glassmorphism -->
+        <div class="card" id="login-card">
+
+            <!-- Sticker GIF Kucing Melambai -->
+            <img src="https://media.tenor.com/lrfSsUHzHMcAAAAi/sup-hi.gif" alt="Cute Cat Greeting" class="gif-sticker">
+
+            <!-- Judul Portal -->
+            <h1 class="title-glow">Vervikasi dulu baru masuk</h1>
+            <p class="subtitle">Sistem Keamanan mendeteksi tingkat keimutan berlebih di sekitar perangkat Anda. Harap
+                buktikan identitas Anda untuk membuka akses pintu hati.</p>
+
+            <!-- Form Verifikasi -->
+            <form id="login-form" onsubmit="handleLogin(event)">
+
+                <!-- Input Nama -->
+                <div class="form-group">
+                    <label class="form-label" for="username">Nama Panggilan Kesayangan / Nama Asli</label>
+                    <div class="input-glow-wrapper">
+                        <input type="text" id="username" class="input-glow"
+                            placeholder="Contoh: Shakira Nayla Bahaweres    " required autocomplete="off">
+                    </div>
+                </div>
+
+                <!-- Input Sandi Rahasia -->
+                <div class="form-group">
+                    <label class="form-label" for="access-code">Sandi Masuk Rahasia</label>
+                    <div class="input-glow-wrapper">
+                        <input type="password" id="access-code" class="input-glow"
+                            placeholder="Hint: coba tulis 'sayang'" required>
+                    </div>
+                    <!-- Pesan Error Dinamis Kocak -->
+                    <div id="error-message" class="error-msg">Sistem menolak! Sila isi dengan benar, Bos!</div>
+                    <!-- Kontainer GIF Meme -->
+                    <div id="login-meme-container" class="meme-container" style="display: none;"></div>
+                </div>
+
+                <!-- Tombol Verifikasi -->
+                <button type="submit" class="btn-primary" id="login-button">
+                    <span>Verifikasi Kelayakan Bucin</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 16 12 12 8 16"></polyline>
+                        <line x1="12" y1="12" x2="12" y2="21"></line>
+                        <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
+                        <polyline points="16 16 12 12 8 16"></polyline>
+                    </svg>
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Script Javascript Portal -->
+    <script src="login.js"></script>
+</body>
+
+</html>
