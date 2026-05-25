@@ -84,3 +84,22 @@ function handleLogin(event) {
 window.onload = function() {
     localStorage.removeItem('userNickname');
 };
+
+// Fitur Lucu & Interaktif: Emoji Click Trail
+document.addEventListener('click', (e) => {
+    const emojis = ["💖", "✨", "🐱", "🐾", "🥤", "🌸", "💫", "🍿"];
+    const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+    
+    const sparkle = document.createElement('div');
+    sparkle.className = 'click-sparkle';
+    sparkle.textContent = randomEmoji;
+    sparkle.style.left = e.pageX + 'px';
+    sparkle.style.top = e.pageY + 'px';
+    
+    document.body.appendChild(sparkle);
+    
+    // Hapus setelah selesai animasi
+    setTimeout(() => {
+        sparkle.remove();
+    }, 800);
+});

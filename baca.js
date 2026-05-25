@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Personalisasi Sapaan Nama Pengguna
     const userGreeting = document.getElementById('user-greeting');
     const storedName = localStorage.getItem('userNickname');
-    
+
     if (storedName) {
         userGreeting.textContent = storedName;
     } else {
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const readingText = document.getElementById('reading-text');
     const btnIncrease = document.getElementById('font-increase');
     const btnDecrease = document.getElementById('font-decrease');
-    
+
     let currentFontSize = 17; // Ukuran optimal untuk font sans-serif
     const minFontSize = 13;
     const maxFontSize = 28;
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function changeTheme(themeName, activeDot, fontFamily) {
         // Ganti atribut tema di elemen body
         document.body.setAttribute('data-theme', themeName);
-        
+
         // Ganti gaya font teks bacaan
         readingText.style.fontFamily = fontFamily;
 
@@ -88,10 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
     readingText.addEventListener('scroll', () => {
         const scrollTop = readingText.scrollTop;
         const scrollHeight = readingText.scrollHeight - readingText.clientHeight;
-        
+
         // Persentase gulir
         const scrollPercentage = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-        
+
         // Perbarui lebar bar progres
         progressBar.style.width = scrollPercentage + '%';
 
@@ -106,6 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
             progressCat.textContent = "😻"; // Kucing jatuh cinta (heart eyes) saat selesai membaca!
         }
     });
+
+    initMusic();
 });
 
 // 5. Fungsi Navigasi
@@ -115,4 +117,109 @@ function goBack() {
 
 function goToNext() {
     window.location.href = 'terima.html';
+}
+
+// Fitur Lucu & Interaktif: Emoji Click Trail
+document.addEventListener('click', (e) => {
+    const emojis = ["💖", "✨", "🐱", "🐾", "🥤", "🌸", "💫", "🍿"];
+    const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+    const sparkle = document.createElement('div');
+    sparkle.className = 'click-sparkle';
+    sparkle.textContent = randomEmoji;
+    sparkle.style.left = e.pageX + 'px';
+    sparkle.style.top = e.pageY + 'px';
+
+    document.body.appendChild(sparkle);
+
+    // Hapus setelah selesai animasi
+    setTimeout(() => {
+        sparkle.remove();
+    }, 800);
+});
+
+// Daftar ramalan cinta lucu
+const fortunes = [
+    "🔮 Ramalan Bintang: Kamu 1000% jodohnya Nabil. Dilarang keras melirik cowo Ambon lain!",
+    "🔮 Hari ini Nabil sedang merindukanmu. Segera kirim pesan suara bilang 'kangen' par dia!",
+    "🔮 Fakta Lucu: Kaka Fira dan ibu dulu bantu comblang, sekarang dia bangga melihat kebucinan kalian! 🤝😎",
+    "🔮 Fakta Lucu 2: Nabil udah penasaran sejak 2022 loh 😜",
+    "🔮 Ramalan Bulan: Kamu 1000% kalian berjodoh",
+];
+
+// Fungsi Ramalan Jodoh Lucu
+function showLoveFortune() {
+    const fortuneBox = document.getElementById('fortune-box');
+    const btn = document.getElementById('btn-fortune');
+
+    btn.disabled = true;
+    btn.textContent = "🔮 Sedang meramal bintang...";
+    fortuneBox.innerHTML = `<span style="color: var(--secondary); font-style: italic;">Membaca garis takdir cinta...</span>`;
+
+    setTimeout(() => {
+        const randomQuote = fortunes[Math.floor(Math.random() * fortunes.length)];
+        fortuneBox.innerHTML = `<span>${randomQuote}</span>`;
+        btn.disabled = false;
+        btn.textContent = "Ramal Lagi 🔮";
+    }, 1200);
+}
+
+// Fitur Musik Latar Belakang (Shape of My Heart)
+let audio = null;
+let musicBtn = null;
+let musicText = null;
+
+function initMusic() {
+    audio = new Audio('https://archive.org/download/Backstreetboys/Backstreet%20Boys%20-%20Shape%20Of%20My%20Heart.mp3');
+    audio.loop = true;
+    
+    musicBtn = document.getElementById('music-btn');
+    musicText = document.getElementById('music-text');
+    
+    let hasInteracted = false;
+    
+    function playReff() {
+        if (hasInteracted) return;
+        hasInteracted = true;
+        audio.currentTime = 48; // Mulai langsung di Reff (48 detik)
+        audio.play().then(() => {
+            updateMusicUI(true);
+        }).catch(err => {
+            console.log("Autoplay blocked:", err);
+            hasInteracted = false;
+        });
+    }
+    
+    document.addEventListener('click', playReff, { once: true });
+    document.addEventListener('touchstart', playReff, { once: true });
+}
+
+function toggleMusic(e) {
+    if (e) e.stopPropagation();
+    if (!audio) return;
+    
+    if (audio.paused) {
+        if (audio.currentTime < 48) {
+            audio.currentTime = 48;
+        }
+        audio.play().then(() => {
+            updateMusicUI(true);
+        });
+    } else {
+        audio.pause();
+        updateMusicUI(false);
+    }
+}
+
+function updateMusicUI(isPlaying) {
+    if (!musicBtn || !musicText) return;
+    if (isPlaying) {
+        musicBtn.classList.add('disc-rotating');
+        musicBtn.textContent = "🔊";
+        musicText.textContent = "Playing: Shape of My Heart 🎵";
+    } else {
+        musicBtn.classList.remove('disc-rotating');
+        musicBtn.textContent = "🔇";
+        musicText.textContent = "Music Paused 🔇";
+    }
 }

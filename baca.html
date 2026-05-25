@@ -92,6 +92,16 @@
                     <img src="https://media1.tenor.com/m/j8LSisGZyTAAAAAd/windah-windah-basudara.gif"
                         alt="Windah Basudara Meme" class="meme-gif" style="max-height: 160px;">
                 </div>
+
+                <!-- Fitur Lucu Baru: Ramalan Jodoh Bucin -->
+                <div class="fortune-container">
+                    <h4 style="margin-bottom: 6px; font-size: 1rem; color: var(--primary);">🔮 Ramalan Jodoh Hari Ini 🔮</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px;">Ingin tahu apa kata bintang-bintang tentang hubungan kalian hari ini?</p>
+                    <button id="btn-fortune" class="btn-fortune" onclick="showLoveFortune()">Buka Ramalan 🔮</button>
+                    <div id="fortune-box" class="fortune-box">
+                        <span style="font-style: italic; color: var(--text-muted);">Klik tombol di atas untuk meramal...</span>
+                    </div>
+                </div>
             </div>
 
             <!-- Bagian Bawah / Navigasi Kartu Baca -->
@@ -119,6 +129,12 @@
 
         </div>
 
+    </div>
+
+    <!-- Floating Music Player -->
+    <div class="music-controller" id="music-controller" onclick="toggleMusic(event)">
+        <button class="music-btn" id="music-btn">🎵</button>
+        <span class="music-text" id="music-text">BSB - Shape of My Heart</span>
     </div>
 
     <!-- Script Javascript Laporan -->

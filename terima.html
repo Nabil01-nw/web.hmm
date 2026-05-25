@@ -11,9 +11,6 @@
 
 <body>
 
-    <!-- Canvas untuk Hujan Emoji Confetti (Hati, Kucing, Badut) -->
-    <canvas id="confetti-canvas"></canvas>
-
     <!-- Latar Belakang Bersinar Neon (Ambient Glow) -->
     <div class="bg-ambient">
         <div class="bg-glow-1"></div>
@@ -45,7 +42,7 @@
                             Will U Be My Girlfriend??
                         </p>
                         <p
-                            style="margin-top: 6px; font-weight: bold; color: hsl(340, 85%, 50%); font-size: 0.85rem; font-style: italic;">
+                            style="margin-top: 6px; font-weight: bold; color: var(--primary); font-size: 0.85rem; font-style: italic;">
                             (Pilih "MAU" Gak Mau Tau!)
                         </p>
                     </div>
@@ -98,6 +95,10 @@
                         <span id="jadian-date"
                             style="font-weight: bold; font-size: 1.1rem; text-decoration: underline;">Hari Ini</span>
                     </p>
+
+                    <h3
+                        style="color: var(--secondary); font-size: 1.15rem; margin-bottom: 16px; font-weight: 800; letter-spacing: 0.1em;">
+                        Kirim Stiker 🫰 Sekarang ke Nabil agar Sah!
                 </div>
 
                 <div class="wadah-foto">
@@ -132,6 +133,12 @@
 
         </div>
 
+    </div>
+
+    <!-- Floating Music Player -->
+    <div class="music-controller" id="music-controller" onclick="toggleMusic(event)">
+        <button class="music-btn" id="music-btn">🎵</button>
+        <span class="music-text" id="music-text">BSB - Shape of My Heart</span>
     </div>
 
     <!-- Script Javascript Halaman Terima -->

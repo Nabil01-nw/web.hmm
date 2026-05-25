@@ -29,9 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set nama pembuat web secara default (bisa diubah manual oleh user nanti)
     certMyName.textContent = "Nabil Q. Ahmad";
 
-    // Inisialisasi Canvas Confetti
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+
 
     // 2. Hubungkan Trik Tombol Menghindar "Gak Mau"
     const btnNo = document.getElementById('btn-no');
@@ -48,6 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
         alert("Nice try! Tapi server menolak pilihan ini. Kontrak menyatakan kamu HARUS pilih 'MAU'! 😉");
         resetButtonNoPosition();
     });
+
+    initMusic();
 });
 
 // ==========================================================================
@@ -192,8 +192,7 @@ function acceptLove() {
     const dateString = today.toLocaleDateString("id-ID", options);
     document.getElementById('jadian-date').textContent = dateString;
 
-    // Nyalakan Kembang Api Confetti Emoji yang heboh!
-    triggerEmojiConfetti();
+
 }
 
 function sendFeedback(event) {
@@ -234,8 +233,7 @@ function sendFeedback(event) {
             </div>
         `;
 
-        // Luncurkan ledakan kembang api emoji lebih heboh lagi!
-        triggerEmojiConfetti();
+
     }, 1200);
 }
 
@@ -244,98 +242,84 @@ function restartJourney() {
     window.location.href = 'index.html';
 }
 
+// Fitur Lucu & Interaktif: Emoji Click Trail
+document.addEventListener('click', (e) => {
+    const emojis = ["💖", "✨", "🐱", "🐾", "🥤", "🌸", "💫", "🍿"];
+    const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+    
+    const sparkle = document.createElement('div');
+    sparkle.className = 'click-sparkle';
+    sparkle.textContent = randomEmoji;
+    sparkle.style.left = e.pageX + 'px';
+    sparkle.style.top = e.pageY + 'px';
+    
+    document.body.appendChild(sparkle);
+    
+    // Hapus setelah selesai animasi
+    setTimeout(() => {
+        sparkle.remove();
+    }, 800);
+});
 
-// ==========================================================================
-// 5. ENGINE CONFETTI EMOJI CANVAS (100% PURE HTML5 CANVAS - CUTE & MEME STYLE)
-// ==========================================================================
-const canvas = document.getElementById('confetti-canvas');
-const ctx = canvas.getContext('2d');
-let emojiParticles = [];
-let animationId = null;
+// Fitur Musik Latar Belakang (Shape of My Heart)
+let audio = null;
+let musicBtn = null;
+let musicText = null;
 
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+function initMusic() {
+    audio = new Audio('https://archive.org/download/Backstreetboys/Backstreet%20Boys%20-%20Shape%20Of%20My%20Heart.mp3');
+    audio.loop = true;
+    
+    musicBtn = document.getElementById('music-btn');
+    musicText = document.getElementById('music-text');
+    
+    let hasInteracted = false;
+    
+    function playReff() {
+        if (hasInteracted) return;
+        hasInteracted = true;
+        audio.currentTime = 48; // Mulai langsung di Reff (48 detik)
+        audio.play().then(() => {
+            updateMusicUI(true);
+        }).catch(err => {
+            console.log("Autoplay blocked:", err);
+            hasInteracted = false;
+        });
+    }
+    
+    document.addEventListener('click', playReff, { once: true });
+    document.addEventListener('touchstart', playReff, { once: true });
 }
 
-const confettiEmojis = [
-    "💖", "❤️", "🐱", "😻", "🌟", "⭐", "🤡", "🎉", "🥤", "🐾"
-];
-
-class EmojiConfetti {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        // Dimulai dari bagian bawah layar untuk dilempar ke atas bagai kembang api
-        this.y = canvas.height + Math.random() * 20;
-        this.size = Math.random() * 16 + 20; // Ukuran font emoji lebih besar biar kelihatan lucu
-
-        // Memilih emoji acak dari daftar di atas
-        this.emoji = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
-
-        this.speedY = -(Math.random() * 14 + 12); // Meluncur ke atas dengan kencang
-        this.speedX = Math.random() * 8 - 4; // Menyebar ke samping
-
-        this.gravity = 0.32; // Tarikan jatuh kembali
-        this.wind = Math.random() * 0.08 - 0.04;
-
-        this.rotation = Math.random() * 360;
-        this.rotationSpeed = Math.random() * 5 - 2.5;
-    }
-
-    update() {
-        this.speedY += this.gravity;
-        this.x += this.speedX + this.wind;
-        this.y += this.speedY;
-        this.rotation += this.rotationSpeed;
-    }
-
-    draw() {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate((this.rotation * Math.PI) / 180);
-
-        // Gambar emoji sebagai teks di Canvas
-        ctx.font = `${this.size}px Arial`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(this.emoji, 0, 0);
-
-        ctx.restore();
-    }
-}
-
-function animateEmojiConfetti() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (let i = emojiParticles.length - 1; i >= 0; i--) {
-        const ep = emojiParticles[i];
-        ep.update();
-        ep.draw();
-
-        // Hapus partikel jika jatuh keluar layar bawah
-        if (ep.y > canvas.height + 50) {
-            emojiParticles.splice(i, 1);
+function toggleMusic(e) {
+    if (e) e.stopPropagation();
+    if (!audio) return;
+    
+    if (audio.paused) {
+        if (audio.currentTime < 48) {
+            audio.currentTime = 48;
         }
-    }
-
-    if (emojiParticles.length > 0) {
-        animationId = requestAnimationFrame(animateEmojiConfetti);
+        audio.play().then(() => {
+            updateMusicUI(true);
+        });
     } else {
-        cancelAnimationFrame(animationId);
-        animationId = null;
+        audio.pause();
+        updateMusicUI(false);
     }
 }
 
-function triggerEmojiConfetti() {
-    if (animationId) {
-        cancelAnimationFrame(animationId);
+function updateMusicUI(isPlaying) {
+    if (!musicBtn || !musicText) return;
+    if (isPlaying) {
+        musicBtn.classList.add('disc-rotating');
+        musicBtn.textContent = "🔊";
+        musicText.textContent = "Playing: Shape of My Heart 🎵";
+    } else {
+        musicBtn.classList.remove('disc-rotating');
+        musicBtn.textContent = "🔇";
+        musicText.textContent = "Music Paused 🔇";
     }
-    emojiParticles = [];
-
-    // Buat 130 partikel emoji acak
-    for (let i = 0; i < 130; i++) {
-        emojiParticles.push(new EmojiConfetti());
-    }
-
-    animateEmojiConfetti();
 }
+
+
+
