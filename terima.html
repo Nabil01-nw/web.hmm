@@ -100,16 +100,24 @@
                     </p>
                 </div>
 
-                <img src="jadian.jpg" class="foto-tengah" alt="Foto Jadian">
+                <div class="wadah-foto">
+                    <img src="jadian.jpg" class="foto-lengkung" alt="Foto Jadian">
+                </div>
 
                 <style>
-                    .foto-tengah {
-                        display: block;
-                        margin-left: auto;
-                        margin-right: auto;
+                    .wadah-foto {
+                        display: flex;
+                        justify-content: center;
+                    }
+
+                    .foto-lengkung {
                         width: 200px;
+                        height: 200px;
+                        object-fit: cover;
+                        border-radius: 15px;
                     }
                 </style>
+
 
 
 
