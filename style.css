@@ -775,10 +775,6 @@ body {
     .btn-secondary {
         width: 100%;
     }
-    
-    #btn-no {
-        left: 45%; /* Di mobile biar gak keluar layar samping */
-    }
 }
 
 /* Sticker GIF Style */

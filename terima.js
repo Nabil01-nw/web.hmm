@@ -267,7 +267,10 @@ let musicBtn = null;
 let musicText = null;
 
 function initMusic() {
-    audio = new Audio('https://archive.org/download/Backstreetboys/Backstreet%20Boys%20-%20Shape%20Of%20My%20Heart.mp3');
+    // Karena server archive.org sering down/bermasalah, gunakan file mp3 lokal.
+    // Silakan download lagu "Shape Of My Heart.mp3", simpan di folder yang sama,
+    // dan ubah namanya menjadi "lagu.mp3".
+    audio = new Audio('lagu.mp3');
     audio.loop = true;
     
     musicBtn = document.getElementById('music-btn');
@@ -278,7 +281,14 @@ function initMusic() {
     function playReff() {
         if (hasInteracted) return;
         hasInteracted = true;
-        audio.currentTime = 48; // Mulai langsung di Reff (48 detik)
+        // Hanya atur currentTime jika lagu sudah cukup dimuat
+        if (audio.readyState >= 1) {
+             audio.currentTime = 48; // Mulai langsung di Reff (48 detik)
+        } else {
+             audio.addEventListener('loadedmetadata', function() {
+                 audio.currentTime = 48;
+             }, {once:true});
+        }
         audio.play().then(() => {
             updateMusicUI(true);
         }).catch(err => {
